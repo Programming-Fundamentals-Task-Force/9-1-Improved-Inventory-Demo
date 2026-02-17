@@ -1,4 +1,4 @@
-# Assignment 1-1: Hello, World!
+# Assignment 9-1: Improved Inventory Demo
 
 Name:
 
@@ -6,36 +6,44 @@ ID:
 
 ## Problem Overview
 
-Problem Statement: A brief description of the problem to solve or the scenario to address. Focus on what students need to achieve without overloading them with details.
+In this assignment, you will add features to Inventory Demo to handle prices and amounts, create one more View, and improve its look and feel.
 
 ## Setup and Environment
 
 - **WARNING:** Do not modify the `.github` or `gradle-tests` directories. These directories are essential for the automated grading process, and any changes may result in incorrect grading.
 
-(Optional)
-
-- Provide details about setting up the project environment, such as:
-  - Maven setup: "Run mvn compile to build the project and mvn exec:java to execute."
-  - Required dependencies: "Ensure you include the following dependencies in your pom.xml."
-  - IDE configurations (if applicable): "Use IntelliJ IDEA or VS Code for this assignment. Import the Maven project directly."
+The Maven project has already been created for you. The package name is com.lab, and the project name (and directory) is lab91. Use mvn compile to build the project and java -cp target/classes com.lab.App or mvn exec:java "-Dexec.mainClass=com.lab.App" to run it.
 
 ## Requirements and Specifications
 
-- Instructions: General guidelines on how to approach the assignment (e.g., "Use only standard Java libraries," "Follow proper coding conventions").
-- Class/Method Specifications: Specific details about the required structure, such as method signatures, class names, or constraints on how the solution should be implemented.
+### Instructions
 
-## Input/Output Conditions
+**Add price and amount fields**
 
-- Clearly specify:
-  - Input format: What inputs the program should accept and any constraints.
-  - Output format: How the program should display results.
+- Add fields in `Item` to store the price and the amount of the item. Use `double` for the price and `int` for the amount.
+- Expose the fields via appropriate getters and setters, namely, `getPrice()`, `setPrice()`, `getAmount()`, and `setAmount()`.
+- `DetailView` must also show and allow editing of these new fields.
 
-## Examples and Usage
+**Add "Add" button**
 
-- Sample Input/Output: Show examples of valid inputs and their corresponding outputs to clarify expectations.
-- Example Usage: Provide one or more examples that show how the program or methods are expected to work in practice.
+- Add an `Add` button in `DashboardView` to add a new item.
+- `Add` button should bring the user to `DetailView` to enter the new item's details, which now includes the price and amount.
+- `Save` button should validate all the fields according to the following constraints:
+  - Name cannot be empty.
+  - Price must not be negative.
+  - Amount must be a non-negative integer.
+- Violation of these constraints should result in a pop-up dialog, showing the message "Invalid details. Please correct them and try again." and stay in the `DetailView`.
+
+**Create `ReportVew`**
+
+- Add an `Report` button in `DashboardView` to summarize the total number of items and total price.
+- Add `ReportView` to the application. The View should show only two things, "Total Amount" and "Total Price", calculated from all the items.
+- `ReportView` must also have an `OK` button to return to `DashboardView`.
+
+**Customize the GUI**
+
+- Use FlatLaf Dark (`FlatDarkLaf`) Look-and-Feel. Update the `pom.xml` file and `App.java` to properly install and initialize FlatLaf.
 
 ## Additional Notes
 
-- Include hints or clarifications as needed (e.g., "Think about edge cases," "Consider using a specific data structure").
-- Mention common pitfalls or things to watch out for.
+- Refer to the slides or FlatLaf website on how to add FlatLaf to the project.
