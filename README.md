@@ -22,6 +22,7 @@ The Maven project has already been created for you. The package name is `com.lab
 
 - Add fields in `Item` to store the price and the amount of the item. Use `double` for the price and `int` for the amount.
 - Expose the fields via appropriate getters and setters, namely, `getPrice()`, `setPrice()`, `getAmount()`, and `setAmount()`.
+- The constructor must also takes all four values as parameters: `name`, `description`, `price`, and `amount`, respectively.
 - `DetailView` must also show and allow editing of these new fields.
 
 **Add "Add" button**
