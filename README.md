@@ -12,7 +12,7 @@ In this assignment, you will add features to Inventory Demo to handle prices and
 
 - **WARNING:** Do not modify the `.github` or `gradle-tests` directories. These directories are essential for the automated grading process, and any changes may result in incorrect grading.
 
-The Maven project has already been created for you. The package name is com.lab, and the project name (and directory) is lab91. Use mvn compile to build the project and java -cp target/classes com.lab.App or mvn exec:java "-Dexec.mainClass=com.lab.App" to run it.
+The Maven project has already been created for you. The package name is `com.lab`, and the project name (and directory) is `lab91`. Use `mvn compile` to build the project and `java -cp target/classes com.lab.App` or `mvn exec:java "-Dexec.mainClass=com.lab.App"` to run it.
 
 ## Requirements and Specifications
 
