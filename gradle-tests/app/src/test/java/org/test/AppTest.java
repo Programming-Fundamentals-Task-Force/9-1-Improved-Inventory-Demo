@@ -18,6 +18,7 @@ import org.assertj.swing.junit.testcase.AssertJSwingJUnitTestCase;
 
 import javax.swing.*;
 import java.awt.Component;
+import java.awt.Container;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -32,14 +33,10 @@ class AppTest extends AssertJSwingJUnitTestCase {
     private ItemModel model;
     private MainController controller;
 
-    @BeforeAll
-    static void setUpOnce() {
-        // Set headless mode for Swing testing
-        System.setProperty("java.awt.headless", "false");
-    }
-
     @Override
     protected void onSetUp() {
+        // Set headless mode for Swing testing
+        System.setProperty("java.awt.headless", "false");
         // Create the application on EDT
         JFrame frame = GuiActionRunner.execute(() -> {
             model = new ItemModel();
@@ -74,7 +71,7 @@ class AppTest extends AssertJSwingJUnitTestCase {
     @Test
     void item_has_price_field_with_getter_and_setter() {
         try {
-            Item item = new Item("Test", "Description");
+            Item item = new Item("Test", "Description", 0.0, 1);
 
             // Check if price field exists via setter/getter
             Method setPrice = Item.class.getMethod("setPrice", double.class);
@@ -94,7 +91,7 @@ class AppTest extends AssertJSwingJUnitTestCase {
     @Test
     void item_has_amount_field_with_getter_and_setter() {
         try {
-            Item item = new Item("Test", "Description");
+            Item item = new Item("Test", "Description", 0.0, 1);
 
             // Check if amount field exists via setter/getter
             Method setAmount = Item.class.getMethod("setAmount", int.class);
@@ -161,8 +158,8 @@ class AppTest extends AssertJSwingJUnitTestCase {
                 @Override
                 protected boolean isMatching(JTextField textField) {
                     Component parent = textField.getParent();
-                    if (parent != null) {
-                        Component[] components = parent.getComponents();
+                    if (parent instanceof Container) {
+                        Component[] components = ((Container) parent).getComponents();
                         for (int i = 0; i < components.length - 1; i++) {
                             if (components[i] instanceof JLabel) {
                                 JLabel label = (JLabel) components[i];
@@ -183,8 +180,8 @@ class AppTest extends AssertJSwingJUnitTestCase {
                 @Override
                 protected boolean isMatching(JTextField textField) {
                     Component parent = textField.getParent();
-                    if (parent != null) {
-                        Component[] components = parent.getComponents();
+                    if (parent instanceof Container) {
+                        Component[] components = ((Container) parent).getComponents();
                         for (int i = 0; i < components.length - 1; i++) {
                             if (components[i] instanceof JLabel) {
                                 JLabel label = (JLabel) components[i];
@@ -220,8 +217,8 @@ class AppTest extends AssertJSwingJUnitTestCase {
             @Override
             protected boolean isMatching(JTextField textField) {
                 Component parent = textField.getParent();
-                if (parent != null) {
-                    Component[] components = parent.getComponents();
+                if (parent instanceof Container) {
+                    Component[] components = ((Container) parent).getComponents();
                     for (int i = 0; i < components.length - 1; i++) {
                         if (components[i] instanceof JLabel) {
                             JLabel label = (JLabel) components[i];
@@ -276,8 +273,8 @@ class AppTest extends AssertJSwingJUnitTestCase {
             @Override
             protected boolean isMatching(JTextField textField) {
                 Component parent = textField.getParent();
-                if (parent != null) {
-                    Component[] components = parent.getComponents();
+                if (parent instanceof Container) {
+                    Component[] components = ((Container) parent).getComponents();
                     for (int i = 0; i < components.length - 1; i++) {
                         if (components[i] instanceof JLabel) {
                             JLabel label = (JLabel) components[i];
@@ -333,8 +330,8 @@ class AppTest extends AssertJSwingJUnitTestCase {
             @Override
             protected boolean isMatching(JTextField textField) {
                 Component parent = textField.getParent();
-                if (parent != null) {
-                    Component[] components = parent.getComponents();
+                if (parent instanceof Container) {
+                    Component[] components = ((Container) parent).getComponents();
                     for (int i = 0; i < components.length - 1; i++) {
                         if (components[i] instanceof JLabel) {
                             JLabel label = (JLabel) components[i];
