@@ -36,7 +36,7 @@ jobs:
       with:
         test-name: Test Item price field
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.AppTest.item_has_price_field_with_getter_and_setter -p gradle-tests"
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.item_has_price_field_with_getter_and_setter -p gradle-tests"
         timeout: 10
         max-score: 10
     - name: Test Item amount field
@@ -45,7 +45,7 @@ jobs:
       with:
         test-name: Test Item amount field
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.AppTest.item_has_amount_field_with_getter_and_setter -p gradle-tests"
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.item_has_amount_field_with_getter_and_setter -p gradle-tests"
         timeout: 10
         max-score: 10
     - name: Test Add button exists
@@ -54,7 +54,7 @@ jobs:
       with:
         test-name: Test Add button exists
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.AppTest.dashboard_has_add_button -p gradle-tests"
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.dashboard_has_add_button -p gradle-tests"
         timeout: 10
         max-score: 10
     - name: Test Report button exists
@@ -63,7 +63,7 @@ jobs:
       with:
         test-name: Test Report button exists
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.AppTest.dashboard_has_report_button -p gradle-tests"
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.dashboard_has_report_button -p gradle-tests"
         timeout: 10
         max-score: 10
     - name: Test DetailView has price and amount fields
@@ -72,7 +72,7 @@ jobs:
       with:
         test-name: Test DetailView has price and amount fields
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.AppTest.detail_view_has_price_and_amount_fields -p gradle-tests"
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.detail_view_has_price_and_amount_fields -p gradle-tests"
         timeout: 10
         max-score: 10
     - name: Test validation for empty name
@@ -81,7 +81,7 @@ jobs:
       with:
         test-name: Test validation for empty name
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.AppTest.save_button_validates_non_empty_name -p gradle-tests"
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.save_button_validates_non_empty_name -p gradle-tests"
         timeout: 10
         max-score: 10
     - name: Test validation for negative price
@@ -90,7 +90,7 @@ jobs:
       with:
         test-name: Test validation for negative price
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.AppTest.save_button_validates_non_negative_price -p gradle-tests"
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.save_button_validates_non_negative_price -p gradle-tests"
         timeout: 10
         max-score: 10
     - name: Test validation for negative amount
@@ -99,7 +99,7 @@ jobs:
       with:
         test-name: Test validation for negative amount
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.AppTest.save_button_validates_non_negative_amount -p gradle-tests"
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.save_button_validates_non_negative_amount -p gradle-tests"
         timeout: 10
         max-score: 10
     - name: Test ReportView displays
@@ -108,7 +108,7 @@ jobs:
       with:
         test-name: Test ReportView displays
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.AppTest.report_button_opens_report_view -p gradle-tests"
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.report_button_opens_report_view -p gradle-tests"
         timeout: 10
         max-score: 10
     - name: Test FlatLaf Look and Feel
@@ -117,7 +117,7 @@ jobs:
       with:
         test-name: Test FlatLaf Look and Feel
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.AppTest.application_uses_flatlaf_look_and_feel -p gradle-tests"
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.application_uses_flatlaf_look_and_feel -p gradle-tests"
         timeout: 10
         max-score: 10
     - name: Autograding Reporter
