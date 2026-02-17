@@ -23,6 +23,12 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
+    // AssertJ Swing for GUI testing
+    testImplementation("org.assertj:assertj-swing-junit:3.17.1")
+
+    // FlatLaf for Look and Feel
+    implementation("com.formdev:flatlaf:3.5.4")
 }
 
 sourceSets {

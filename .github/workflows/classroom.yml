@@ -30,42 +30,108 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '25'
-    - name: Console output
-      id: console-output
-      uses: classroom-resources/autograding-io-grader@v1
-      with:
-        test-name: Console output
-        setup-command: mvn compile -f ${{ env.PROJECT_DIR }}/pom.xml
-        command: mvn exec:java -Dexec.mainClass="com.lab.App" --quiet -f ${{ env.PROJECT_DIR }}/pom.xml
-        input: ''
-        expected-output: |-
-          Hello, world!
-        comparison-method: exact
-        timeout: 10
-        max-score: 20
-    - name: output_conforms_to_the_expected_output
-      id: unit-test-1
+    - name: Test Item price field
+      id: test-item-price
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: output_conforms_to_the_expected_output
+        test-name: Test Item price field
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.ClassTest.output_conforms_to_the_expected_output -p gradle-tests"
+        command: "./gradle-tests/gradlew test --tests org.test.AppTest.item_has_price_field_with_getter_and_setter -p gradle-tests"
         timeout: 10
-        max-score: 40
-    - name: object_value_equals_something
-      id: unit-test-2
+        max-score: 10
+    - name: Test Item amount field
+      id: test-item-amount
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: object_value_equals_something
+        test-name: Test Item amount field
         setup-command: ''
-        command: "./gradle-tests/gradlew test --tests org.test.ClassTest.object_value_equals_something -p gradle-tests"
+        command: "./gradle-tests/gradlew test --tests org.test.AppTest.item_has_amount_field_with_getter_and_setter -p gradle-tests"
         timeout: 10
-        max-score: 40
+        max-score: 10
+    - name: Test Add button exists
+      id: test-add-button
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test Add button exists
+        setup-command: ''
+        command: "./gradle-tests/gradlew test --tests org.test.AppTest.dashboard_has_add_button -p gradle-tests"
+        timeout: 10
+        max-score: 10
+    - name: Test Report button exists
+      id: test-report-button
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test Report button exists
+        setup-command: ''
+        command: "./gradle-tests/gradlew test --tests org.test.AppTest.dashboard_has_report_button -p gradle-tests"
+        timeout: 10
+        max-score: 10
+    - name: Test DetailView has price and amount fields
+      id: test-detailview-fields
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test DetailView has price and amount fields
+        setup-command: ''
+        command: "./gradle-tests/gradlew test --tests org.test.AppTest.detail_view_has_price_and_amount_fields -p gradle-tests"
+        timeout: 10
+        max-score: 10
+    - name: Test validation for empty name
+      id: test-validation-name
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test validation for empty name
+        setup-command: ''
+        command: "./gradle-tests/gradlew test --tests org.test.AppTest.save_button_validates_non_empty_name -p gradle-tests"
+        timeout: 10
+        max-score: 10
+    - name: Test validation for negative price
+      id: test-validation-price
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test validation for negative price
+        setup-command: ''
+        command: "./gradle-tests/gradlew test --tests org.test.AppTest.save_button_validates_non_negative_price -p gradle-tests"
+        timeout: 10
+        max-score: 10
+    - name: Test validation for negative amount
+      id: test-validation-amount
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test validation for negative amount
+        setup-command: ''
+        command: "./gradle-tests/gradlew test --tests org.test.AppTest.save_button_validates_non_negative_amount -p gradle-tests"
+        timeout: 10
+        max-score: 10
+    - name: Test ReportView displays
+      id: test-reportview-display
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test ReportView displays
+        setup-command: ''
+        command: "./gradle-tests/gradlew test --tests org.test.AppTest.report_button_opens_report_view -p gradle-tests"
+        timeout: 10
+        max-score: 10
+    - name: Test FlatLaf Look and Feel
+      id: test-flatlaf
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test FlatLaf Look and Feel
+        setup-command: ''
+        command: "./gradle-tests/gradlew test --tests org.test.AppTest.application_uses_flatlaf_look_and_feel -p gradle-tests"
+        timeout: 10
+        max-score: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        CONSOLE-OUTPUT_RESULTS: "${{ steps.console-output.outputs.result }}"
-        UNIT-TEST-1_RESULTS: "${{ steps.unit-test-1.outputs.result }}"
-        UNIT-TEST-2_RESULTS: "${{ steps.unit-test-2.outputs.result }}"
+        TEST-ITEM-PRICE_RESULTS: "${{ steps.test-item-price.outputs.result }}"
+        TEST-ITEM-AMOUNT_RESULTS: "${{ steps.test-item-amount.outputs.result }}"
+        TEST-ADD-BUTTON_RESULTS: "${{ steps.test-add-button.outputs.result }}"
+        TEST-REPORT-BUTTON_RESULTS: "${{ steps.test-report-button.outputs.result }}"
+        TEST-DETAILVIEW-FIELDS_RESULTS: "${{ steps.test-detailview-fields.outputs.result }}"
+        TEST-VALIDATION-NAME_RESULTS: "${{ steps.test-validation-name.outputs.result }}"
+        TEST-VALIDATION-PRICE_RESULTS: "${{ steps.test-validation-price.outputs.result }}"
+        TEST-VALIDATION-AMOUNT_RESULTS: "${{ steps.test-validation-amount.outputs.result }}"
+        TEST-REPORTVIEW-DISPLAY_RESULTS: "${{ steps.test-reportview-display.outputs.result }}"
+        TEST-FLATLAF_RESULTS: "${{ steps.test-flatlaf.outputs.result }}"
       with:
-        runners: console-output,unit-test-1,unit-test-2
+        runners: test-item-price,test-item-amount,test-add-button,test-report-button,test-detailview-fields,test-validation-name,test-validation-price,test-validation-amount,test-reportview-display,test-flatlaf
