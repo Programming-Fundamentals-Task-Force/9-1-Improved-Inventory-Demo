@@ -1,0 +1,71 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+env:
+  PROJECT_DIR: ''
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Find project directory
+      id: find-dir
+      run: |
+        # Find the first directory matching 'lab*' or 'hw*'
+        PROJECT_DIR=$(find . -maxdepth 1 -type d \( -name "lab*" -o -name "hw*" \) | head -n 1)
+        if [ -z "$PROJECT_DIR" ]; then
+          echo "No matching directory found!" >&2
+          exit 1
+        fi
+        echo "PROJECT_DIR=${PROJECT_DIR}" >> $GITHUB_ENV
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '25'
+    - name: Console output
+      id: console-output
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Console output
+        setup-command: mvn compile -f ${{ env.PROJECT_DIR }}/pom.xml
+        command: mvn exec:java -Dexec.mainClass="com.lab.App" --quiet -f ${{ env.PROJECT_DIR }}/pom.xml
+        input: ''
+        expected-output: |-
+          Hello, world!
+        comparison-method: exact
+        timeout: 10
+        max-score: 20
+    - name: output_conforms_to_the_expected_output
+      id: unit-test-1
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: output_conforms_to_the_expected_output
+        setup-command: ''
+        command: "./gradle-tests/gradlew test --tests org.test.ClassTest.output_conforms_to_the_expected_output -p gradle-tests"
+        timeout: 10
+        max-score: 40
+    - name: object_value_equals_something
+      id: unit-test-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: object_value_equals_something
+        setup-command: ''
+        command: "./gradle-tests/gradlew test --tests org.test.ClassTest.object_value_equals_something -p gradle-tests"
+        timeout: 10
+        max-score: 40
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        CONSOLE-OUTPUT_RESULTS: "${{ steps.console-output.outputs.result }}"
+        UNIT-TEST-1_RESULTS: "${{ steps.unit-test-1.outputs.result }}"
+        UNIT-TEST-2_RESULTS: "${{ steps.unit-test-2.outputs.result }}"
+      with:
+        runners: console-output,unit-test-1,unit-test-2
