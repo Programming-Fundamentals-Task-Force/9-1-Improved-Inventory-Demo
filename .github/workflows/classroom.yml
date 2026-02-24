@@ -38,7 +38,7 @@ jobs:
         setup-command: ''
         command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.item_has_price_field_with_getter_and_setter -p gradle-tests"
         timeout: 10
-        max-score: 10
+        max-score: 5
     - name: Test Item amount field
       id: test-item-amount
       uses: classroom-resources/autograding-command-grader@v1
@@ -47,7 +47,7 @@ jobs:
         setup-command: ''
         command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.item_has_amount_field_with_getter_and_setter -p gradle-tests"
         timeout: 10
-        max-score: 10
+        max-score: 5
     - name: Test Add button exists
       id: test-add-button
       uses: classroom-resources/autograding-command-grader@v1
@@ -56,7 +56,7 @@ jobs:
         setup-command: ''
         command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.dashboard_has_add_button -p gradle-tests"
         timeout: 10
-        max-score: 10
+        max-score: 5
     - name: Test Report button exists
       id: test-report-button
       uses: classroom-resources/autograding-command-grader@v1
@@ -65,7 +65,7 @@ jobs:
         setup-command: ''
         command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.dashboard_has_report_button -p gradle-tests"
         timeout: 10
-        max-score: 10
+        max-score: 5
     - name: Test DetailView has price and amount fields
       id: test-detailview-fields
       uses: classroom-resources/autograding-command-grader@v1
@@ -74,7 +74,7 @@ jobs:
         setup-command: ''
         command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.detail_view_has_price_and_amount_fields -p gradle-tests"
         timeout: 10
-        max-score: 10
+        max-score: 7
     - name: Test validation for empty name
       id: test-validation-name
       uses: classroom-resources/autograding-command-grader@v1
@@ -102,15 +102,51 @@ jobs:
         command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.save_button_validates_non_negative_amount -p gradle-tests"
         timeout: 10
         max-score: 10
-    - name: Test ReportView displays
+    - name: Test ReportView displays total amount label
       id: test-reportview-display
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Test ReportView displays
+        test-name: Test ReportView displays total amount label
         setup-command: ''
         command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.report_button_opens_report_view -p gradle-tests"
         timeout: 10
-        max-score: 10
+        max-score: 7
+    - name: Test ReportView shows total price label
+      id: test-reportview-total-price-label
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test ReportView shows total price label
+        setup-command: ''
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.report_view_shows_total_price -p gradle-tests"
+        timeout: 10
+        max-score: 7
+    - name: Test ReportView has OK button
+      id: test-reportview-ok-button
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test ReportView has OK button
+        setup-command: ''
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.report_view_has_ok_button -p gradle-tests"
+        timeout: 10
+        max-score: 7
+    - name: Test ReportView correct total amount
+      id: test-reportview-correct-amount
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test ReportView correct total amount
+        setup-command: ''
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.report_view_shows_correct_total_amount -p gradle-tests"
+        timeout: 10
+        max-score: 9
+    - name: Test ReportView correct total price
+      id: test-reportview-correct-price
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test ReportView correct total price
+        setup-command: ''
+        command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.report_view_shows_correct_total_price -p gradle-tests"
+        timeout: 10
+        max-score: 8
     - name: Test FlatLaf Look and Feel
       id: test-flatlaf
       uses: classroom-resources/autograding-command-grader@v1
@@ -119,7 +155,7 @@ jobs:
         setup-command: ''
         command: "xvfb-run --auto-servernum ./gradle-tests/gradlew test --tests org.test.AppTest.application_uses_flatlaf_look_and_feel -p gradle-tests"
         timeout: 10
-        max-score: 10
+        max-score: 5
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
@@ -132,6 +168,10 @@ jobs:
         TEST-VALIDATION-PRICE_RESULTS: "${{ steps.test-validation-price.outputs.result }}"
         TEST-VALIDATION-AMOUNT_RESULTS: "${{ steps.test-validation-amount.outputs.result }}"
         TEST-REPORTVIEW-DISPLAY_RESULTS: "${{ steps.test-reportview-display.outputs.result }}"
+        TEST-REPORTVIEW-TOTAL-PRICE-LABEL_RESULTS: "${{ steps.test-reportview-total-price-label.outputs.result }}"
+        TEST-REPORTVIEW-OK-BUTTON_RESULTS: "${{ steps.test-reportview-ok-button.outputs.result }}"
+        TEST-REPORTVIEW-CORRECT-AMOUNT_RESULTS: "${{ steps.test-reportview-correct-amount.outputs.result }}"
+        TEST-REPORTVIEW-CORRECT-PRICE_RESULTS: "${{ steps.test-reportview-correct-price.outputs.result }}"
         TEST-FLATLAF_RESULTS: "${{ steps.test-flatlaf.outputs.result }}"
       with:
-        runners: test-item-price,test-item-amount,test-add-button,test-report-button,test-detailview-fields,test-validation-name,test-validation-price,test-validation-amount,test-reportview-display,test-flatlaf
+        runners: test-item-price,test-item-amount,test-add-button,test-report-button,test-detailview-fields,test-validation-name,test-validation-price,test-validation-amount,test-reportview-display,test-reportview-total-price-label,test-reportview-ok-button,test-reportview-correct-amount,test-reportview-correct-price,test-flatlaf
